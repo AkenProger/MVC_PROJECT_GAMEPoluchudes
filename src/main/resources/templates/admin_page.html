@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>GamePage</title>
+</head>
+<body>
+<h1>
+    GAME START
+       <table border="3">
+           <thead>
+           <tr>
+               <th>ID</th>
+               <th>Name</th>
+               <th>Role</th>
+               <th>Login</th>
+           </tr>
+           </thead>
+           <tbody>
+           <tr th:each="use : ${admin_page}">
+
+               <td th:text="${use.getId()}"></td>
+               <td th:text="${use.getName()}"></td>
+               <td th:text="${use.getLogin()}"></td>
+
+           </tr>
+
+           </tbody>
+       </table>
+</h1>
+</body>
+</html>
