@@ -1,13 +1,19 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Создать новый вопрос!</title>
+    <title>Изменить вопрос!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 </head>
 <body>
 <div class="container">
-    <h2>Добавить новый вопрос</h2>
-    <form th:method="POST" th:action="@{/saveQuestion}" th:object="${question}">
+    <h2>Изменить вопрос</h2>
+    <form th:method="POST" th:action="@{/updateQuestion}" th:object="${question}">
+
+        <div class="form-group">
+            <label for="questionsNum">Номер:</label>
+            <input type="text" id="questionsNum" th:field="*{id}">
+        </div>
+
         <div class="form-group">
             <label for="questionsText">Введите вопрос:</label>
             <input type="text" id="questionsText" th:field="*{question}">
@@ -18,7 +24,7 @@
             <input type="text" id="questionsAnswer" th:field="*{answer}">
         </div>
 
-        <button type="submit" class="btn btn-info" style="color: white; font-size: 20px;">Сохранить вопрос.</button>
+        <button type="submit" class="btn btn-info" style="color: white; font-size: 20px;">Обновить вопрос.</button>
     </form>
 </div>
 </body>

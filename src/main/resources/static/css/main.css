@@ -2,6 +2,9 @@
     body{
       background-color: #323232;
       margin-top: 155px;
+      background-image: url('https://img08.rl0.ru/afisha/e1200x600i/daily.afisha.ru/uploads/images/5/20/520d20cf8b51161288c4e9bda07e68e9.jpg');
+      background-size: cover;
+      background-size: 100%;
     }
 
     /* Form Style */

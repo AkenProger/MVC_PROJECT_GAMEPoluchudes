@@ -1,6 +1,8 @@
 package kg.akejan.testPoluchudesProject.controller;
 
 import kg.akejan.testPoluchudesProject.models.dto.UserDto;
+import kg.akejan.testPoluchudesProject.models.entities.Questions;
+import kg.akejan.testPoluchudesProject.services.QuestionService;
 import kg.akejan.testPoluchudesProject.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AuthorizationController {
 
     private UserService userService;
+    private QuestionService questionService;
 
-    public AuthorizationController(UserService userService) {
+    public AuthorizationController(UserService userService, QuestionService questionService) {
         this.userService = userService;
+        this.questionService = questionService;
     }
 
     @GetMapping("/index")
@@ -28,10 +32,13 @@ public class AuthorizationController {
         if (userService.checkLoginAndPassword(userDto)) {
             UserDto userDto1 = userService.findByLogin(userDto.getLogin());
             if (userDto1.getRoles().getName().equals("admin")) {
-                model.addAttribute("admin_page", userService.findAll());
+                model.addAttribute("questions", questionService.findAll());
                 return "admin_page";
             } else {
                 model.addAttribute("users", userService.findByLogin(userDto.getLogin()));
+                model.addAttribute("randomQuest", questionService.getRandomQuestion());
+
+                System.out.println(questionService.getRandomQuestion().getQuestion());
                 return "user_page";
             }
         }

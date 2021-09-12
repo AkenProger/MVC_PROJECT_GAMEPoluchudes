@@ -2,8 +2,10 @@ package kg.akejan.testPoluchudesProject.services.impl;
 
 import kg.akejan.testPoluchudesProject.dao.UserRepository;
 import kg.akejan.testPoluchudesProject.mappers.UserMapper;
+import kg.akejan.testPoluchudesProject.models.dto.QuestionDto;
 import kg.akejan.testPoluchudesProject.models.dto.UserDto;
 import kg.akejan.testPoluchudesProject.models.entities.Users;
+import kg.akejan.testPoluchudesProject.services.QuestionService;
 import kg.akejan.testPoluchudesProject.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,11 @@ public class UserServiceImpl implements UserService {
 
     private UserMapper userMapper = UserMapper.USER_MAPPER;
     private UserRepository userRepository;
+    private QuestionService questionService;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, QuestionService questionService) {
         this.userRepository = userRepository;
+        this.questionService = questionService;
     }
 
     @Override
@@ -75,5 +79,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findByLogin(String login) {
         return userMapper.toDto(userRepository.finByLogin(login));
+    }
+
+    @Override
+    public boolean findAnswer(String answer) {
+        List<QuestionDto> questionDtoList = questionService.getAllActiveQuestion();
+        for (QuestionDto question : questionDtoList) {
+            System.out.println(question.getQuestion());
+            if (question.getAnswer().equals(answer)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
